@@ -171,8 +171,6 @@
     }
     .size.selected { border: 1.5px solid #222; font-weight: 700; }
 
-    /* A/B 테스트용 요소: 기본 A에서는 숨김. VWO Variation B에서 표시하세요. */
-    .variant-b-only { display: none; }
     .limited-offer {
       margin-top: 27px;
       padding: 15px 18px;
@@ -366,17 +364,16 @@
           <button class="size" type="button">L</button>
         </div>
 
-        <!-- VWO Variation B: 이 배너의 display를 block으로 변경하세요. -->
-        <div id="limited-offer" class="limited-offer variant-b-only">
+        <!-- VWO Variation B: 기본 A에서는 숨겨지도록 style="display: none;" 추가함 -->
+        <div id="limited-offer" class="limited-offer" style="display: none;">
           <div class="limited-label"><span aria-hidden="true">◷</span><span>30분 한정 특가</span></div>
           <span class="timer" id="countdown">30:00</span>
         </div>
-        <div id="saving-message" class="saving-message variant-b-only">
+        <div id="saving-message" class="saving-message" style="display: none;">
           <span aria-hidden="true">♧</span> 총 10,000원 절약 중!
         </div>
 
         <div class="buy-row">
-          <!-- VWO Variation B에서 버튼 문구를 '한정 사은품 받고 구매하기'로 변경할 수 있습니다. -->
           <button id="purchase-button" class="buy-button" type="button">구매하기</button>
           <button class="wish-button" type="button" aria-label="찜하기">♡</button>
         </div>
@@ -434,37 +431,4 @@
     // 사이즈 선택 UI
     document.querySelectorAll('.size').forEach((button) => {
       button.addEventListener('click', () => {
-        document.querySelectorAll('.size').forEach((item) => item.classList.remove('selected'));
-        button.classList.add('selected');
-      });
-    });
-
-    // 썸네일 선택 표시(사진을 추가한 뒤 이미지 전환 기능으로 확장할 수 있습니다)
-    document.querySelectorAll('.thumb').forEach((button) => {
-      button.addEventListener('click', () => {
-        document.querySelectorAll('.thumb').forEach((item) => item.classList.remove('active'));
-        button.classList.add('active');
-      });
-    });
-
-    // 과제용 데모 타이머: Variation B에서 배너를 표시했을 때만 보입니다.
-    // 실제 구매/결제 기능은 연결되어 있지 않습니다.
-    let remainingSeconds = 30 * 60;
-    const timerElement = document.getElementById('countdown');
-    function updateTimer() {
-      const minutes = String(Math.floor(remainingSeconds / 60)).padStart(2, '0');
-      const seconds = String(remainingSeconds % 60).padStart(2, '0');
-      timerElement.textContent = `${minutes}:${seconds}`;
-      if (remainingSeconds > 0) remainingSeconds -= 1;
-    }
-    updateTimer();
-    setInterval(updateTimer, 1000);
-
-    // 클릭 이벤트를 VWO에서 추적할 때 #purchase-button 요소를 선택하세요.
-    document.getElementById('purchase-button').addEventListener('click', () => {
-      // 과제 데모이므로 실제 결제나 주문은 진행하지 않습니다.
-      console.log('A/B test event: purchase button clicked');
-    });
-  </script>
-</body>
-</html>
+        document.querySelectorAll('.size').forEach((
