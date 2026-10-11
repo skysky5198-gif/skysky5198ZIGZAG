@@ -319,9 +319,6 @@
           <button class="thumb" type="button" aria-label="상품 이미지 4"><span class="image-placeholder">사진 4</span></button>
         </div>
 
-        <!-- 나중에 images/knit-top.jpg 파일을 올리고 아래 주석을 해제하면 됩니다.
-             <img src="images/knit-top.jpg" alt="아이보리 라운드넥 니트">
-             아래의 image-placeholder 요소를 삭제하거나 숨겨 주세요. -->
         <div class="main-image" id="main-product-image">
           <div class="image-placeholder">
             <div>
@@ -364,7 +361,7 @@
           <button class="size" type="button">L</button>
         </div>
 
-        <!-- VWO Variation B: 기본 A에서는 숨겨지도록 style="display: none;" 추가함 -->
+        <!-- VWO Variation B: 기본 A에서는 숨겨지도록 style="display: none;" 설정 -->
         <div id="limited-offer" class="limited-offer" style="display: none;">
           <div class="limited-label"><span aria-hidden="true">◷</span><span>30분 한정 특가</span></div>
           <span class="timer" id="countdown">30:00</span>
@@ -420,7 +417,7 @@
   <footer>© A/B Test Practice Store · 학습용 웹페이지</footer>
 
   <script>
-    // 색상 선택 UI
+    // 색상 선택 UI 기능 복구
     document.querySelectorAll('.color').forEach((button) => {
       button.addEventListener('click', () => {
         document.querySelectorAll('.color').forEach((item) => item.classList.remove('selected'));
@@ -428,7 +425,40 @@
       });
     });
 
-    // 사이즈 선택 UI
+    // 사이즈 선택 UI 기능 복구
     document.querySelectorAll('.size').forEach((button) => {
       button.addEventListener('click', () => {
-        document.querySelectorAll('.size').forEach((
+        document.querySelectorAll('.size').forEach((item) => item.classList.remove('selected'));
+        button.classList.add('selected');
+      });
+    });
+
+    // 썸네일 선택 표시 기능
+    document.querySelectorAll('.thumb').forEach((button) => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.thumb').forEach((item) => item.classList.remove('active'));
+        button.classList.add('active');
+      });
+    });
+
+    // 데모 타이머
+    let remainingSeconds = 30 * 60;
+    const timerElement = document.getElementById('countdown');
+    function updateTimer() {
+      const minutes = String(Math.floor(remainingSeconds / 60)).padStart(2, '0');
+      const seconds = String(remainingSeconds % 60).padStart(2, '0');
+      if (timerElement) {
+        timerElement.textContent = `${minutes}:${seconds}`;
+      }
+      if (remainingSeconds > 0) remainingSeconds -= 1;
+    }
+    updateTimer();
+    setInterval(updateTimer, 1000);
+
+    // 구매 버튼 클릭 이벤트 트래킹
+    document.getElementById('purchase-button').addEventListener('click', () => {
+      console.log('A/B test event: purchase button clicked');
+    });
+  </script>
+</body>
+</html>
