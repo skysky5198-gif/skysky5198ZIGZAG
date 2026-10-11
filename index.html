@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[가을/겨울] 프리미엄 기모 오버핏 후드티 - VWO 실험 페이지</title>
+    
+    <!-- VWO SmartCode 삽입 위치 (필요시 아래에 본인의 VWO 코드를 붙여넣으세요) -->
+    <!-- 
+    <link rel="preconnect" href="https://dev.visualwebsiteoptimizer.com" />
+    <script type='text/javascript' id='vwoCode'>
+      // VWO SmartCode 작성 영역
+    </script> 
+    -->
+
+    <style>
+        :root {
+            --primary-color: #ff5722;
+            --text-dark: #333333;
+            --text-gray: #777777;
+            --bg-light: #f9f9f9;
+            --border-color: #e5e5e5;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: var(--text-dark);
+        }
+
+        /* 상단 네비게이션 바 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+            background: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left, .header-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* 카테고리 타이틀 */
+        .category-path {
+            padding: 10px 20px;
+            font-size: 14px;
+            color: var(--text-gray);
+            background: var(--bg-light);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* 메인 상품 상세 컨테이너 */
+        .product-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding-bottom: 100px;
+        }
+
+        /* 상품 이미지 영역 */
+        .product-image-section {
+            position: relative;
+            width: 100%;
+            background-color: #f1f1f1;
+            text-align: center;
+        }
+
+        .product-image-section img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+        }
+
+        .image-badge {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+
+        /* 상품 정보 영역 */
+        .product-info {
+            padding: 20px;
+        }
+
+        .live-tag {
+            color: #e91e63;
+            font-weight: bold;
+            font-size: 13px;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        .store-name {
+            font-size: 13px;
+            color: var(--text-gray);
+            margin-bottom: 5px;
+        }
+
+        .product-title {
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        .rating-box {
+            font-size: 14px;
+            color: var(--text-gray);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .rating-box span {
+            color: #ff9800;
+            font-weight: bold;
+        }
+
+        /* 가격 및 할인 영역 (A/B Test 타겟 영역) */
+        .price-section {
+            background: #fff3e0;
+            border: 1px solid #ffe0b2;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .discount-row {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+
+        .discount-rate {
+            color: var(--primary-color);
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: var(--text-gray);
+            font-size: 15px;
+        }
+
+        .final-price {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        /* 시간 제한 및 절약 금액 안내 (Variation B에서 주로 강조되는 요소) */
+        .urgency-notice {
+            font-size: 13px;
+            color: #d32f2f;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* 쿠폰 배너 */
+        .coupon-banner {
+            border: 1px solid var(--border-color);
+            padding: 12px 15px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .coupon-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        /* 하단 고정 구매 버튼 영역 */
+        .bottom-fixed-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #ffffff;
+            border-top: 1px solid var(--border-color);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-sizing: border-box;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+
+        .action-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 11px;
+            color: var(--text-gray);
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .action-group span {
+            font-size: 18px;
+        }
+
+        /* 구매하기 버튼 (VWO Track Clicks 이벤트 대상) */
+        .purchase-btn {
+            flex-grow: 1;
+            background-color: var(--text-dark);
+            color: #ffffff;
+            border: none;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: center;
+            transition: background-color 0.2s;
+        }
+
+        .purchase-btn:hover {
+            background-color: #555555;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 상단 네비게이션 -->
+    <header>
+        <div class="header-left">
+            <button class="icon-btn">&lt;</button>
+            <span style="font-weight: bold; font-size: 16px;">자체제작관</span>
+        </div>
+        <div class="header-right">
+            <button class="icon-btn">🏠</button>
+            <button class="icon-btn">🔍</button>
+            <button class="icon-btn">🛒</b
+
+    <!-- 상품 상세 본문 컨테이너 -->
+    <div class="product-container">
+        
+        <!-- 상품 이미지 -->
+        <div class="product-image-section">
+            <!-- 가상의 가을/겨울 후드티 이미지 연출 -->
+            <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=800&q=80" alt="가을 겨울 기모 후드티">
+            <div class="image-badge">1 | 5</div>
+        </div>
+
+        <!-- 상품 정보 -->
+        <div class="product-info">
+            <div class="live-tag">🔴 LIVE 가을·겨울 특가 익스프레스</div>
+            <div class="store-name">리얼위버 단독특가</div>
+            
+            <h1 class="product-title">
+                [누적 30만장 돌파/made] 프리미엄 헤비웨이트 기모 오버핏 후드티 (블루디/오트밀/차콜)
+            </h1>
+
+            <div class="rating-box">
+                <span>★ 4.9</span> 리뷰 12,450개
+            </div>
+
+            <!-- 가격 정보 섹션 (A/B Test 변형 지점) -->
+            <div class="price-section">
+                <div class="discount-row">
+                    <span class="discount-rate">25%</span>
+                    <span class="original-price">39,000원</span>
+                </div>
+                <div class="final-price">29,000원</div>
+                
+                <!-- 실험군(Variation B)에서 강조할 긴급성 및 절약 문구 -->
+                <div class="urgency-notice">
+                    ⏰ 30분 한정 특가 (총 10,000원 절약 중!)
+                </div>
+            </div>
+
+            <!-- 쿠폰받기 배너 -->
+            <div class="coupon-banner">
+                <span>첫 구매 회원 3,000원 할인 쿠폰받기</span>
+                <button class="coupon-btn">쿠폰 받기</button>
+            </div>
+
+            <div style="font-size: 14px; color: var(--text-gray); line-height: 1.6;">
+                <p><b>[상품 안내]</b> 찬바람 부는 가을과 겨울에우 우수한 보온성을 자랑하는 두툼한 기모 안감의 오버핏 후드티입니다. 변형이 적은 고밀도 원단을 사용하여 오래 입어도 깔끔한 핏을 유지합니다.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 하단 고정 바 (구매 버튼) -->
+    <div class="bottom-fixed-bar">
+        <button class="action-group">
+            <span>⭐</span>
+            리뷰 (12k)
+        </button>
+        <button class="action-group">
+            <span>🤍</span>
+            찜하기
+        </button>
+        <!-- VWO에서 Track Clicks로 추적할 핵심 구매 버튼 -->
+        <button id="test-button" class="purchase-btn">구매하기</button>
+    </div>
+
+</body>
+</html>
