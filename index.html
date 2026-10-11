@@ -112,18 +112,6 @@
       border-radius: 5px;
       background: #f3f0ec;
     }
-    .image-placeholder {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 24px;
-      color: #8b837a;
-      background: linear-gradient(145deg, #f7f5f1, #e8e2da);
-      line-height: 1.8;
-    }
-    .image-placeholder strong { display: block; font-size: 19px; color: #655e56; }
     .image-count {
       position: absolute;
       bottom: 14px;
@@ -313,21 +301,16 @@
     <section class="product-layout">
       <div class="gallery">
         <div class="thumbnails" aria-label="상품 이미지 목록">
-          <button class="thumb active" type="button" aria-label="상품 이미지 1"><span class="image-placeholder">사진 1</span></button>
-          <button class="thumb" type="button" aria-label="상품 이미지 2"><span class="image-placeholder">사진 2</span></button>
-          <button class="thumb" type="button" aria-label="상품 이미지 3"><span class="image-placeholder">사진 3</span></button>
-          <button class="thumb" type="button" aria-label="상품 이미지 4"><span class="image-placeholder">사진 4</span></button>
+          <button class="thumb active" type="button" aria-label="상품 이미지 1" onclick="changeImage('knit-1.webp', 1)"><img src="knit-1.webp" alt="썸네일 1"></button>
+          <button class="thumb" type="button" aria-label="상품 이미지 2" onclick="changeImage('knit-2.webp', 2)"><img src="knit-2.webp" alt="썸네일 2"></button>
+          <button class="thumb" type="button" aria-label="상품 이미지 3" onclick="changeImage('knit-3.webp', 3)"><img src="knit-3.webp" alt="썸네일 3"></button>
+          <button class="thumb" type="button" aria-label="상품 이미지 4" onclick="changeImage('knit-4.webp', 4)"><img src="knit-4.webp" alt="썸네일 4"></button>
+          <button class="thumb" type="button" aria-label="상품 이미지 5" onclick="changeImage('knit-5.webp', 5)"><img src="knit-5.webp" alt="썸네일 5"></button>
         </div>
 
         <div class="main-image" id="main-product-image">
-          <div class="image-placeholder">
-            <div>
-              <strong>상품 사진을 여기에 추가하세요</strong>
-              이미지 파일을 images/knit-top.jpg로 저장한 뒤<br>
-              이 영역의 안내 문구를 실제 이미지로 교체하세요.
-            </div>
-          </div>
-          <span class="image-count">1 / 4</span>
+          <img id="active-main-img" src="knit-1.webp" alt="데일리 라운드넥 니트" style="width: 100%; height: 100%; object-fit: cover;">
+          <span class="image-count" id="image-count-text">1 / 5</span>
         </div>
       </div>
 
@@ -417,7 +400,14 @@
   <footer>© A/B Test Practice Store · 학습용 웹페이지</footer>
 
   <script>
-    // 색상 선택 UI 기능 복구
+    function changeImage(imageSrc, index) {
+      document.getElementById('active-main-img').src = imageSrc;
+      document.getElementById('image-count-text').textContent = index + ' / 5';
+      
+      document.querySelectorAll('.thumb').forEach((item) => item.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+    }
+
     document.querySelectorAll('.color').forEach((button) => {
       button.addEventListener('click', () => {
         document.querySelectorAll('.color').forEach((item) => item.classList.remove('selected'));
@@ -425,7 +415,6 @@
       });
     });
 
-    // 사이즈 선택 UI 기능 복구
     document.querySelectorAll('.size').forEach((button) => {
       button.addEventListener('click', () => {
         document.querySelectorAll('.size').forEach((item) => item.classList.remove('selected'));
@@ -433,15 +422,6 @@
       });
     });
 
-    // 썸네일 선택 표시 기능
-    document.querySelectorAll('.thumb').forEach((button) => {
-      button.addEventListener('click', () => {
-        document.querySelectorAll('.thumb').forEach((item) => item.classList.remove('active'));
-        button.classList.add('active');
-      });
-    });
-
-    // 데모 타이머
     let remainingSeconds = 30 * 60;
     const timerElement = document.getElementById('countdown');
     function updateTimer() {
@@ -455,7 +435,6 @@
     updateTimer();
     setInterval(updateTimer, 1000);
 
-    // 구매 버튼 클릭 이벤트 트래킹
     document.getElementById('purchase-button').addEventListener('click', () => {
       console.log('A/B test event: purchase button clicked');
     });
