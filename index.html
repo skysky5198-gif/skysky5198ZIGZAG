@@ -475,31 +475,22 @@
     });
  
     // =====================================================================
-    // TỰ ĐỘNG CẬP NHẬT MỐC KẾT THÚC LÀ CUỐI NGÀY HÔM NAY (23:59:59 KST)
-    // Không bao giờ bị lỗi 00:00:00 khi qua ngày mới
+    // Đảm bảo lấy chính xác mốc 23:59:59 của ngày hôm nay theo giờ địa phương
     // =====================================================================
     function getTodaySaleEnd() {
       const now = new Date();
-      // Chuyển sang giờ chuẩn KST (UTC+9)
-      const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-      const kstNow = new Date(utc + (3600000 * 9));
-      
-      // Đặt thời gian là 23:59:59 của ngày hiện tại
-      const endKst = new Date(kstNow.getFullYear(), kstNow.getMonth(), kstNow.getDate(), 23, 59, 59, 0);
-      
-      // Trả lại định dạng thời gian chuẩn để tính toán
-      return new Date(endKst.getTime() - (3600000 * 9));
+      // Tạo mốc kết thúc đúng vào 23:59:59.999 của ngày hiện tại
+      return new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
     }
 
     const SALE_END = getTodaySaleEnd();
  
     // ---------- A안 (Control): 고정된 날짜 및 시간 문구 ----------
     function formatDeadline(date) {
-      const kst = new Date(date.getTime() + 9 * 60 * 60 * 1000);
-      const month = kst.getUTCMonth() + 1;
-      const day = kst.getUTCDate();
-      const hh = String(kst.getUTCHours()).padStart(2, '0');
-      const mm = String(kst.getUTCMinutes()).padStart(2, '0');
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      const hh = String(date.getHours()).padStart(2, '0');
+      const mm = String(date.getMinutes()).padStart(2, '0');
       return `${month}월 ${day}일 ${hh}:${mm}까지 세일 종료`;
     }
     const deadlineElement = document.getElementById('sale-deadline');
