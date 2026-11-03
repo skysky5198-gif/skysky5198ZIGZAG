@@ -5,10 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>데일리 라운드넥 니트 | 쇼핑몰 A/B 테스트</title>
  
-  <!-- VWO SmartCode: 실험 생성 후 VWO에서 제공한 SmartCode를 여기에 붙여 넣으세요. -->
-  <!-- VWO SMARTCODE START -->
-  <!-- Paste your VWO SmartCode here -->
-  <!-- VWO SMARTCODE END -->
+  <!-- VWO SmartCode: 통합 완료 -->
+  <!-- Start Wingify Async V3.0 SmartCode -->
+  <link rel="preconnect" href="https://edge.wingify.net"/>
+  <script type="text/javascript">
+  window._wingify_code || (function() {        
+      var account_id = 1298033,
+          version = 3.0,
+          settings_tolerance = 2000,
+          hide_element = 'body',
+          hide_element_style =
+          'opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;transition:none !important';
+      /* DO NOT EDIT BELOW THIS LINE */
+      var n=window,i=document;if(-1<i.URL.indexOf('__wingify_disable__')||n._wingify_code)return;var t=!1,r=i.currentScript,nonce=r&&r.nonce,e={sT:settings_tolerance,hES:hide_element_style,hE:hide_element};try{e=Object.assign(e,JSON.parse(localStorage.getItem('_wingify_'+account_id+'_config')))}catch(e){}var code={script:r,nonce:nonce,settings_tolerance:function(){return e.sT},hide_element:function(){return performance.getEntriesByName('first-contentful-paint')[0]?'':e.hE},hide_element_style:function(){return'{'+e.hES+'}'},getVersion:function(){return version},finish:function(){var e;!t&&(t=!0,e=i.getElementById('_vis_opt_path_hides'))&&e.parentNode.removeChild(e)},finished:function(){return t},addScript:function(e){var t=i.createElement('script');t.src=e,nonce&&t.setAttribute('nonce',nonce),t.fetchPriority='high',i.head.appendChild(t)},init:function(){n._settings_timer=setTimeout(function(){code.finish()},this.settings_tolerance());var e,t=this.hide_element();t&&((e=i.createElement('style')).id='_vis_opt_path_hides',nonce&&e.setAttribute('nonce',nonce),e.textContent=t+this.hide_element_style(),i.head.appendChild(e)),this.addScript('https://edge.wingify.net/tag/'+account_id+'.js')}};n._wingify_code=code;code.init();})();
+  </script> 
+  <!--End Wingify Async SmartCode -->
  
   <style>
     :root {
@@ -494,7 +505,7 @@
     function updateTimer() {
       const remainingMs = Math.max(0, SALE_END.getTime() - Date.now());
       const totalSeconds = Math.floor(remainingMs / 1000);
-      const hours = Math.floor(totalSeconds / 3600);          // 24시간이 넘어도 시간으로 누적 표시
+      const hours = Math.floor(totalSeconds / 3600);        // 24시간이 넘어도 시간으로 누적 표시
       const minutes = Math.floor((totalSeconds % 3600) / 60);
       const seconds = totalSeconds % 60;
  
@@ -514,4 +525,3 @@
   </script>
 </body>
 </html>
- 
