@@ -397,18 +397,14 @@
  
         <!-- ================================================================
              A안 (Control): 고정된 날짜 및 시간 표시 — 기본으로 보이는 영역
-             예) "11월 3일 23:59까지 세일 종료"
-             문구는 아래 스크립트의 SALE_END 값으로 자동 생성됩니다.
              ================================================================ -->
         <div id="offer-deadline" class="limited-offer">
           <div class="limited-label"><span aria-hidden="true">◷</span><span>기간 한정 SALE</span></div>
-          <span class="timer" id="sale-deadline">11월 3일 23:59까지 세일 종료</span>
+          <span class="timer" id="sale-deadline">세일 종료</span>
         </div>
  
         <!-- ================================================================
              B안 (Variation): 실시간 카운트다운 타이머 — 기본으로 숨김
-             예) "세일 종료까지 남은 시간 20:59:00" (시:분:초)
-             VWO 변형안에서 A안(#offer-deadline)을 숨기고 이 영역을 표시하세요.
              ================================================================ -->
         <div id="offer-countdown" class="limited-offer" style="display: none;">
           <div class="limited-label"><span aria-hidden="true">◷</span><span>세일 종료까지 남은 시간</span></div>
@@ -479,14 +475,26 @@
     });
  
     // =====================================================================
-    // 공통 세일 종료 시점 (A안과 B안이 반드시 같은 값을 사용)
-    // 실험 일정에 맞게 이 한 줄만 수정하세요. (한국 시간 기준, +09:00)
+    // TỰ ĐỘNG CẬP NHẬT MỐC KẾT THÚC LÀ CUỐI NGÀY HÔM NAY (23:59:59 KST)
+    // Không bao giờ bị lỗi 00:00:00 khi qua ngày mới
     // =====================================================================
-    const SALE_END = new Date('2026-11-03T23:59:00+09:00');
+    function getTodaySaleEnd() {
+      const now = new Date();
+      // Chuyển sang giờ chuẩn KST (UTC+9)
+      const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+      const kstNow = new Date(utc + (3600000 * 9));
+      
+      // Đặt thời gian là 23:59:59 của ngày hiện tại
+      const endKst = new Date(kstNow.getFullYear(), kstNow.getMonth(), kstNow.getDate(), 23, 59, 59, 0);
+      
+      // Trả lại định dạng thời gian chuẩn để tính toán
+      return new Date(endKst.getTime() - (3600000 * 9));
+    }
+
+    const SALE_END = getTodaySaleEnd();
  
     // ---------- A안 (Control): 고정된 날짜 및 시간 문구 ----------
     function formatDeadline(date) {
-      // 한국 시간 기준으로 "11월 3일 23:59" 형태로 표시
       const kst = new Date(date.getTime() + 9 * 60 * 60 * 1000);
       const month = kst.getUTCMonth() + 1;
       const day = kst.getUTCDate();
@@ -505,7 +513,7 @@
     function updateTimer() {
       const remainingMs = Math.max(0, SALE_END.getTime() - Date.now());
       const totalSeconds = Math.floor(remainingMs / 1000);
-      const hours = Math.floor(totalSeconds / 3600);        // 24시간이 넘어도 시간으로 누적 표시
+      const hours = Math.floor(totalSeconds / 3600);        
       const minutes = Math.floor((totalSeconds % 3600) / 60);
       const seconds = totalSeconds % 60;
  
